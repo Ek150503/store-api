@@ -15,13 +15,20 @@ const connect = require('./db/connect');
 const PORT = process.env.PORT || 3001;
 const URI_MONGODB = process.env.URI_MONGODB;
 
+// Routes
+const productRouter = require('./routes/products');
+
 app.get('/', (req, res) => {
   res.send(`
   <h1>Store API</h1>
-  <a href='/api/v/products'>Product Route</a>
+  <a href='/api/v1/products'>Product Route</a>
   `);
 });
 
+//routes
+app.use('/api/v1/products', productRouter);
+
+// errors
 app.use(errorMiddleware);
 app.use(notFoundMiddleware);
 
