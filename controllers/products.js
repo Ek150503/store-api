@@ -9,7 +9,7 @@ const getAllProductsStatic = async (req, res) => {
 };
 
 const getAllProducts = async (req, res) => {
-  const { featured, company } = req.query;
+  const { featured, company, name } = req.query;
   const queryObject = {};
 
   if (featured) {
@@ -18,6 +18,10 @@ const getAllProducts = async (req, res) => {
 
   if (company) {
     queryObject.company = company;
+  }
+
+  if (name) {
+    queryObject.name = { $regex: name, $options: 'i' };
   }
 
   const products = await Product.find(queryObject);
